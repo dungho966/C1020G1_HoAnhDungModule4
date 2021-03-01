@@ -7,8 +7,6 @@ import java.util.List;
 public interface ProductRepository {
     List<Product> showAllProduct();
 
-    ;
-
     void deleteProduct(Integer id);
 
     Product findProductById(Integer id);
