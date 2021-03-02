@@ -105,7 +105,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/cms");
         dataSource.setUsername( "root" );
-        dataSource.setPassword( "123456" );
+        dataSource.setPassword( "hoanhdung" );
         return dataSource;
     }
 
@@ -123,14 +123,5 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         return properties;
     }
 
-    @Bean
-    public CustomerRepository customerRepository{
-        return new CustomerRepositoryImpl();
-    }
-
-    @Bean
-    public CustomerService customerService(){
-        return new CustomerServiceImpl();
-    }
 
 }
