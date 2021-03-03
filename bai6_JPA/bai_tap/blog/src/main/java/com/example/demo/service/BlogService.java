@@ -5,11 +5,11 @@ import com.example.demo.model.Blog;
 import java.util.List;
 
 public interface BlogService {
-    List<Blog> findAll();
+        List<Blog> findAll();
 
-    Blog findById(Integer id);
+        Blog findById(Integer id);
 
-    void save(Blog blog);
+        void save(Blog blog);
 
-    void remove(Integer id);
+        void remove(Integer id);
 }
