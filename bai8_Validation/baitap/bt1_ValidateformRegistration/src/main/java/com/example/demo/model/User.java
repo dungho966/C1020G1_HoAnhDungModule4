@@ -6,11 +6,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.Min;
+
 @Component
 public class User implements Validator {
     private String firstName ;
-    private String lastname ;
+    private String lastName ;
     private String number ;
+    @Min(value = 18 , message = "Tuoi phai lon hon 18")
     private String age ;
     private String email ;
 
@@ -25,9 +28,9 @@ public class User implements Validator {
         this.number = number;
     }
 
-    public User(String firstName, String number , String lastname, String age, String email) {
+    public User(String firstName, String number , String lastName, String age, String email) {
         this.firstName = firstName;
-        this.lastname = lastname;
+        this.lastName = lastName;
         this.number = number ;
         this.age = age;
         this.email = email;
@@ -41,12 +44,12 @@ public class User implements Validator {
         this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAge() {
@@ -74,17 +77,17 @@ public class User implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target ;
         String firstName = user.getFirstName();
-        ValidationUtils.rejectIfEmpty(errors , "firstname" , "firstname.empty");
+        ValidationUtils.rejectIfEmpty(errors , "firstName" , "firstname.empty");
         if (firstName.length() < 5 || firstName.length() > 45 ){
-            errors.rejectValue("firstname" , "firstname.length");
+            errors.rejectValue("firstName" , "firstname.length");
         }
 
 
 
-        String lastname = user.getLastname();
-        ValidationUtils.rejectIfEmpty(errors , "lastname" , "lastname.empty");
+        String lastname = user.getLastName();
+        ValidationUtils.rejectIfEmpty(errors , "lastName" , "lastname.empty");
         if (lastname.length() < 5 || lastname.length() > 45 ){
-            errors.rejectValue("lastname" , "lastname.length");
+            errors.rejectValue("lastName" , "lastname.length");
         }
 
         String number = user.getNumber();
@@ -99,15 +102,11 @@ public class User implements Validator {
             errors.rejectValue("number", "number.matches");
         }
 
-        String age = user.getAge();
-        ValidationUtils.rejectIfEmpty(errors , "age" , "age.empty");
-        if (age.length() <18 ){
-            errors.rejectValue("age" , "age.length");
-        }
+
 
         String email = user.getEmail() ;
         ValidationUtils.rejectIfEmpty(errors , "email" , "email.empty");
-        if (!email.matches("\"^[a-z]+@[a-z]+([.][a-z]{2,})+$\"")){
+        if (!email.matches("^[a-z0-9]+@[a-z]+([.][a-z]{2,})+$")){
             errors.rejectValue("email" , "email.matches");
         }
     }
