@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="form">
+    <form action="#" th:action="@{/edit}" th:object="${blog}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{dateUpdate}"/>
+        <div>
+            <label>Name</label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Content</label>
+            <input type="email" th:field="*{content}"/>
+        </div>
+        <div>
+            <label>Category</label>
+            <select name="category">
+                <option th:each="c : ${categories}"
+                        th:value="${c.id}"
+                        th:text="${c.name}"
+                        th:selected="(${c.id} == *{category.id})"></option>
+            </select>
+        </div>
+        <input type="submit" value="Edit">
+    </form>
+</div>
+</body>
+</html>

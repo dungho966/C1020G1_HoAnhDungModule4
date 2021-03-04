@@ -1,17 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Blog;
 import com.example.demo.model.Category;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 public interface CategoryService {
-    Page<Category> findAll(Pageable pageable);
+    Iterable<Category> findAll();
 
-    Category findById(Integer id);
+    Category findById(Long id);
 
     void save(Category category);
 
-    void remove(Integer id);
-
+    void remove(Long id);
 }

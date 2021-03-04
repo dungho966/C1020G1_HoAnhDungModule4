@@ -1,31 +1,26 @@
 package com.example.demo.model;
 
+
 import javax.persistence.*;
 import java.util.List;
-
 @Entity
-        @Table
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
 
-    private String name ;
+    @OneToMany
+    private List<Blog> blogList;
 
-    @OneToMany(targetEntity = Blog.class)
-    private List<Blog> blogs ;
-
-    public Category(String name){
-        this.name = name ;
-    }
     public Category() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,12 +32,20 @@ public class Category {
         this.name = name;
     }
 
-    public void setBlogs(List<Blog> blogs){
-        this.blogs = blogs ;
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 
     @Override
     public String toString() {
-        return name;
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", blogList=" + blogList +
+                '}';
     }
 }

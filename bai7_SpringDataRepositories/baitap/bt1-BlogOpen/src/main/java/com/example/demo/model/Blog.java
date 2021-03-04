@@ -1,39 +1,24 @@
 package com.example.demo.model;
 
-
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-        @Table
 public class Blog {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
-    private Integer id ;
-    private String tittle ;
-    private String content ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
+    String name;
+    String content;
 
     @ManyToOne
-    @JoinColumn
-    private Category category ;
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    public Category getCategory(){
-        return category ;
-    }
-
-    public void setCategory(Category category){
-        this.category = category ;
-    }
+    private Date dateUpdate;
 
     public Blog() {
     }
-
-    @Override
-    public String toString() {
-        return String.format("Blog[id=%d, tittle='%s', content='%s']", id, tittle, content);
-    }
-
-
 
     public Integer getId() {
         return id;
@@ -43,12 +28,12 @@ public class Blog {
         this.id = id;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getName() {
+        return name;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getContent() {
@@ -57,5 +42,32 @@ public class Blog {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Date getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(Date dateUpdate) {
+        this.dateUpdate = dateUpdate;
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", category=" + category +
+                ", dateUpdate=" + dateUpdate +
+                '}';
     }
 }

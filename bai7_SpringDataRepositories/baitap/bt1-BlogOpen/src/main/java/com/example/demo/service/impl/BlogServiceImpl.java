@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Blog;
+import com.example.demo.model.Category;
 import com.example.demo.repository.BlogRepository;
 import com.example.demo.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class BlogServiceImpl implements BlogService {
     @Autowired
-    private BlogRepository blogRepository ;
-
+    BlogRepository blogRepository;
 
     @Override
     public Page<Blog> findAll(Pageable pageable) {
-        return blogRepository.findAll(pageable);
+        return blogRepository.findByOrderByDateUpdateDesc(pageable);
     }
 
     @Override
@@ -27,17 +25,22 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public void save(Blog blog) {
-        blogRepository.save(blog) ;
+    public void save(Blog Blog) {
+        blogRepository.save(Blog);
     }
 
     @Override
-    public void remove(Integer id) {
+    public void delete(Integer id) {
         blogRepository.deleteById(id);
     }
 
     @Override
-    public Page<Blog> findAllByTitleContaining(String tittle, Pageable pageable) {
-        return blogRepository.findByTittle(tittle,pageable);
+    public Iterable<Blog> findAllByCategory(Category category) {
+        return blogRepository.findAllByCategory(category);
+    }
+
+    @Override
+    public Page<Blog> findByName(String name, Pageable pageable) {
+        return blogRepository.findByName(name, pageable);
     }
 }

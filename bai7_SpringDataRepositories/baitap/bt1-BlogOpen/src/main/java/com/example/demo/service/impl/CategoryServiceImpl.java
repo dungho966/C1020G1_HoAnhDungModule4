@@ -4,23 +4,21 @@ import com.example.demo.model.Category;
 import com.example.demo.repository.CategoryRepository;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
 
     @Override
-    public Page<Category> findAll(Pageable pageable) {
-        return categoryRepository.findAll(pageable);
+    public Iterable<Category> findAll() {
+        return categoryRepository.findAll();
     }
 
     @Override
-    public Category findById(Integer id) {
+    public Category findById(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }
 
@@ -30,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void remove(Long id) {
         categoryRepository.deleteById(id);
     }
 }

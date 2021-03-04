@@ -1,39 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>List Blog</title>
+    <title>Categories</title>
 </head>
 <body>
-<a href="/create-blog">Create new blog</a>
-<a href="/create-category">Create Category</a>
-<h1>Category List</h1>
-<table class="table table-striped">
-    <thead>
+<p>
+    <a th:href="@{/}">
+        Category
+    </a>
+</p>
+<a href="/create-category">Create new category</a>
+<h1>Categories</h1>
+<table border="1">
     <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:each="category : ${categories}">
-        <td th:text="${category.name}"></td>
-        <td><a th:href="@{/edit-category/__${category.id}__ }">Edit</a></td>
-        <td><a th:href="@{/delete-category/__${category.id}__ }">Delete</a></td>
-    </tr>
+    <th:block th:each="category : ${categories}">
+        <tr>
+            <td th:text="${category.id}"></td>
+            <td th:text="${category.name}"></td>
+            <td><a th:href="@{/edit-category/__${category.id}__ }">Edit</a></td>
+            <td><a th:href="@{/delete-category/__${category.id}__ }">Delete</a></td>
+            <td><a th:href="@{/view-category/__${category.id}__ }">View</a></td>
+        </tr>
     </th:block>
-
-    </tr>
-    </tbody>
 </table>
-<div>
-    <a th:href="@{'/list-category'(page=${categories.number - 1})}" th:if="${categories.hasPrevious()}">Previous</a>
-    <span th:text="${categories.number + 1}"></span>/<span th:text="${categories.totalPages}"></span>
-    <a th:href="@{'/customers'(page=${categories.number + 1})}" th:if="${categories.hasNext()}">Next</a>
-</div>
-
 </body>
 </html>
