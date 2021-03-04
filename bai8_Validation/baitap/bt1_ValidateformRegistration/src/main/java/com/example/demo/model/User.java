@@ -6,6 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 
 @Component
@@ -15,6 +16,8 @@ public class User implements Validator {
     private String number ;
     @Min(value = 18 , message = "Tuoi phai lon hon 18")
     private String age ;
+
+    @Email(message = "Email Khong Hop Le")
     private String email ;
 
     public User() {
@@ -101,13 +104,6 @@ public class User implements Validator {
         if (!number.matches("(^$|[0-9]*$)")){
             errors.rejectValue("number", "number.matches");
         }
-
-
-
-        String email = user.getEmail() ;
-        ValidationUtils.rejectIfEmpty(errors , "email" , "email.empty");
-        if (!email.matches("^[a-z0-9]+@[a-z]+([.][a-z]{2,})+$")){
-            errors.rejectValue("email" , "email.matches");
-        }
+        
     }
 }
