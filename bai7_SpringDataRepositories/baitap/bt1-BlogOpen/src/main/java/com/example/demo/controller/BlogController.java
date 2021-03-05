@@ -52,9 +52,9 @@ public class BlogController {
     }
     @PostMapping("/blog/save")
     public String save(Blog blog, RedirectAttributes redirect){
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date today = Calendar.getInstance().getTime();
-        String date = df.format(today);
+        String date = dateFormat.format(today);
         blog.setDateUpdate(date);
         blogService.save(blog);
         redirect.addFlashAttribute("success","Add new blog successfully !!");
