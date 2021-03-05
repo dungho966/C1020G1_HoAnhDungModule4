@@ -14,6 +14,7 @@ public class User implements Validator {
     private String firstName ;
     private String lastName ;
     private String number ;
+
     @Min(value = 18 , message = "Tuoi phai lon hon 18")
     private String age ;
 
@@ -104,6 +105,6 @@ public class User implements Validator {
         if (!number.matches("(^$|[0-9]*$)")){
             errors.rejectValue("number", "number.matches");
         }
-        
+
     }
 }

@@ -1,30 +1,47 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Entity
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String name;
-    String content;
+    private int id;
+    private String name;
+    private String content;
+
+    @Column(name = "dateupdate",columnDefinition = "datetime")
+    private String dateUpdate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    private Date dateUpdate;
+    public String getDateUpdate() {
+        return dateUpdate;
+    }
+
+    public void setDateUpdate(String dateUpdate) {
+        this.dateUpdate = dateUpdate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Blog() {
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,30 +61,12 @@ public class Blog {
         this.content = content;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Date getDateUpdate() {
-        return dateUpdate;
-    }
-
-    public void setDateUpdate(Date dateUpdate) {
-        this.dateUpdate = dateUpdate;
-    }
-
     @Override
     public String toString() {
         return "Blog{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
-                ", category=" + category +
-                ", dateUpdate=" + dateUpdate +
                 '}';
     }
 }

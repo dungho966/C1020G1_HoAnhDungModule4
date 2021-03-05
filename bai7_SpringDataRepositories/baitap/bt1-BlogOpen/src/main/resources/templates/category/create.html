@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Create category</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-<h1>Create category</h1>
-<p>
-    <a href="/categories">Blog list</a>
-</p>
-<th:block th:if="${message}">
-    <p th:text="${message}"></p>
-</th:block>
-<form th:action="@{/create-category}" th:object="${category}" method="post">
-    <table>
-        <tr>
-            <td>Name:</td>
-            <td><input type="text" th:field="*{name}"/></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Create category"></td>
-        </tr>
-    </table>
-</form>
+<h1>Add New Category</h1>
+<h2>
+    <a th:href="@{/categorys}">
+        Back to category list
+    </a>
+</h2>
+<div id="form">
+    <form action="#" th:action="@{/category/save}" th:object="${category}" method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name: </label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <input type="submit" value="Save"></input>
+    </form>
+</div>
 </body>
 </html>

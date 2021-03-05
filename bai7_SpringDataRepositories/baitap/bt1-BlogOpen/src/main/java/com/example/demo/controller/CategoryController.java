@@ -1,104 +1,59 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Blog;
 import com.example.demo.model.Category;
-import com.example.demo.service.BlogService;
 import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
-
-    @Autowired
-    BlogService blogService;
+    private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public ModelAndView listCategorys(){
-        Iterable<Category> categories = categoryService.findAll();
-        ModelAndView modelAndView = new ModelAndView("/category/list");
-        modelAndView.addObject("categories", categories);
-        return modelAndView;
+    public ModelAndView listCategory(@PageableDefault (size = 5) Pageable pageable){
+        return new ModelAndView("/category/list","categoryList",categoryService.findAll(pageable));
     }
 
-    @GetMapping("/create-category")
-    public ModelAndView showCreateForm(){
-        ModelAndView modelAndView = new ModelAndView("/category/create");
-        modelAndView.addObject("category", new Category());
-        return modelAndView;
+    @GetMapping("/category/create")
+    public ModelAndView createForm(){
+        return new ModelAndView("/category/create","category", new Category());
     }
-
-    @PostMapping("/create-category")
-    public ModelAndView saveCategory(@ModelAttribute("category") Category category){
+    @PostMapping("/category/save")
+    public String save(Category category, RedirectAttributes redirect){
         categoryService.save(category);
-
-        ModelAndView modelAndView = new ModelAndView("/category/create");
-        modelAndView.addObject("category", new Category());
-        modelAndView.addObject("message", "New category created successfully");
-        return modelAndView;
+        redirect.addFlashAttribute("success", "Add new category successfully !!");
+        return "redirect:/categories";
     }
 
-    @GetMapping("/edit-category/{id}")
-    public ModelAndView showEditForm(@PathVariable Long id){
-        Category category = categoryService.findById(id);
-        if(category != null) {
-            ModelAndView modelAndView = new ModelAndView("/category/edit");
-            modelAndView.addObject("category", category);
-            return modelAndView;
-
-        }else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
-            return modelAndView;
-        }
+    @GetMapping("/category/{id}/edit")
+    public ModelAndView edit(@PathVariable int id){
+        return new ModelAndView("/category/edit","category", categoryService.findById(id));
     }
-
-    @PostMapping("/edit-category")
-    public ModelAndView updateCategory(@ModelAttribute("category") Category category){
+    @PostMapping("/category/update")
+    public String update(Category category){
         categoryService.save(category);
-        ModelAndView modelAndView = new ModelAndView("/category/edit");
-        modelAndView.addObject("category", category);
-        modelAndView.addObject("message", "Category updated successfully");
-        return modelAndView;
+        return "redirect:/categories";
     }
 
-    @GetMapping("/delete-category/{id}")
-    public ModelAndView showDeleteForm(@PathVariable Long id){
-        Category category = categoryService.findById(id);
-        if(category != null) {
-            ModelAndView modelAndView = new ModelAndView("/category/delete");
-            modelAndView.addObject("category", category);
-            return modelAndView;
-
-        }else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
-            return modelAndView;
-        }
+    @GetMapping("/category/{id}/delete")
+    public ModelAndView delete(@PathVariable int id){
+        return new ModelAndView("/category/delete","category", categoryService.findById(id));
     }
-
-    @PostMapping("/delete-category")
-    public String deleteCategory(@ModelAttribute("category") Category category){
+    @PostMapping("/category/delete")
+    public String delete(Category category, RedirectAttributes redirect){
         categoryService.remove(category.getId());
-        return "redirect:categories";
+        redirect.addFlashAttribute("success", "Removed blog successfully !!");
+        return "redirect:/categories";
     }
 
-    @GetMapping("/view-category/{id}")
-    public ModelAndView viewCategory(@PathVariable("id") Long id){
-        Category category = categoryService.findById(id);
-        if(category == null){
-            return new ModelAndView("/error.404");
-        }
 
-        Iterable<Blog> blogs = blogService.findAllByCategory(category);
-
-        ModelAndView modelAndView = new ModelAndView("/category/view");
-        modelAndView.addObject("category", category);
-        modelAndView.addObject("blogs", blogs);
-        return modelAndView;
-    }
 }

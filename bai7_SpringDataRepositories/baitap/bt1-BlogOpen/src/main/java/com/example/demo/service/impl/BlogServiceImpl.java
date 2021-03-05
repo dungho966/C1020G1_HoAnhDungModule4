@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Blog;
-import com.example.demo.model.Category;
 import com.example.demo.repository.BlogRepository;
 import com.example.demo.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,38 +8,40 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class BlogServiceImpl implements BlogService {
     @Autowired
-    BlogRepository blogRepository;
+    private BlogRepository blogRepository;
 
     @Override
-    public Page<Blog> findAll(Pageable pageable) {
-        return blogRepository.findByOrderByDateUpdateDesc(pageable);
+    public Page<Blog> findAllByName(String name, Pageable pageable) {
+        return blogRepository.findAllByName(name, pageable);
     }
 
     @Override
-    public Blog findById(Integer id) {
+    public Page<Blog> findAllBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Blog findById(int id) {
         return blogRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void save(Blog Blog) {
-        blogRepository.save(Blog);
+    public void save(Blog blog) {
+        blogRepository.save(blog);
     }
 
     @Override
-    public void delete(Integer id) {
+    public void remove(int id) {
         blogRepository.deleteById(id);
     }
 
-    @Override
-    public Iterable<Blog> findAllByCategory(Category category) {
-        return blogRepository.findAllByCategory(category);
-    }
+//    @Override
+//    public Page<Blog> findBlogByOrderByDateUpdateDesc(Pageable pageable) {
+//        return blogRepository.findBlogByOrderByDateUpdateDesc(pageable);
+//    }
 
-    @Override
-    public Page<Blog> findByName(String name, Pageable pageable) {
-        return blogRepository.findByName(name, pageable);
-    }
 }

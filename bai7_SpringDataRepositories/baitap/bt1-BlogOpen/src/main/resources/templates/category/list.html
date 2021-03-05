@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Categories</title>
+<html xmlns:th="http://www.thymeleaf.org">
 </head>
 <body>
-<p>
-    <a th:href="@{/}">
-        Category
+<h1>Category List</h1>
+<h2>
+    <a th:href="@{/category/create}">
+        Add new category
     </a>
-</p>
-<a href="/create-category">Create new category</a>
-<h1>Categories</h1>
-<table border="1">
+</h2>
+<table id = "blogs">
+    <thead>
     <tr>
-        <th>Id</th>
+        <th>STT</th>
         <th>Name</th>
         <th>Edit</th>
         <th>Delete</th>
-        <th>View</th>
     </tr>
-    <th:block th:each="category : ${categories}">
-        <tr>
-            <td th:text="${category.id}"></td>
-            <td th:text="${category.name}"></td>
-            <td><a th:href="@{/edit-category/__${category.id}__ }">Edit</a></td>
-            <td><a th:href="@{/delete-category/__${category.id}__ }">Delete</a></td>
-            <td><a th:href="@{/view-category/__${category.id}__ }">View</a></td>
-        </tr>
-    </th:block>
+    </thead>
+    <tbody>
+    <tr th:each="category,rowStat : ${categoryList}">
+        <td th:text="${rowStat.index} + 1"></td>
+        <td th:text="${category.getName()}"></td>
+        <td><a th:href="@{/category/{id}/edit(id=${category.getId()})}">Edit</a></td>
+        <td><a th:href="@{/category/{id}/delete(id=${category.getId()})}">Delete</a></td>
+    </tr>
+    </tbody>
 </table>
+<div>
+    <a th:href="@{'/categorys'(page=${categoryList.number - 1})}" th:if="${categoryList.hasPrevious()}">Previous</a>
+    <span th:text="${categoryList.number + 1}"></span>/<span th:text="${categoryList.totalPages}"></span>
+    <a th:href="@{'/categorys'(page=${categoryList.number + 1})}" th:if="${categoryList.hasNext()}">Next</a>
+</div>
 </body>
 </html>

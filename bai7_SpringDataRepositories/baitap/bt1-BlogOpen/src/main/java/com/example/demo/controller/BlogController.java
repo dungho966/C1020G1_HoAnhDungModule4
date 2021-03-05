@@ -10,82 +10,84 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
 @Controller
 public class BlogController {
-    @Autowired
-    BlogService blogService;
 
     @Autowired
-    CategoryService categoryService;
+    private BlogService blogService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @ModelAttribute("categories")
-    public Iterable<Category> provinces(){
+    public Iterable<Category> categories(){
         return categoryService.findAll();
     }
 
     @GetMapping("/")
-    public ModelAndView showHome(@RequestParam("s") Optional<String> s, @PageableDefault(size = 5) Pageable pageable){
-        Page<Blog> blogs;
-        if(s.isPresent()){
-            blogs = blogService.findByName(s.get(), pageable);
+    public String index(Model model, @PageableDefault (size = 5,sort = "dateUpdate") Pageable pageable, @RequestParam("s")Optional<String> s){
+        Page<Blog> blogList;
+        if (s.isPresent()){
+            blogList = blogService.findAllByName(s.get(), pageable);
         } else {
-            blogs = blogService.findAll(pageable);
+            blogList = blogService.findAllBlog(pageable);
         }
-        ModelAndView modelAndView = new ModelAndView("/blog/home");
-        modelAndView.addObject("blogs", blogs);
-        return modelAndView;
+        model.addAttribute("blogList", blogList);
+        return "/blog/list";
     }
 
-    @GetMapping("/edit")
-    public ModelAndView editBlog(@RequestParam Integer id) {
-        return new ModelAndView("/blog/edit","blog",blogService.findById(id));
-    }
+    @GetMapping("/blog/create")
+    public String create(Model model){
 
-    @PostMapping("/edit")
-    public String editBlog(@ModelAttribute Blog Blog, RedirectAttributes redirectAttributes) {
-        blogService.save(Blog);
-        redirectAttributes.addFlashAttribute("messenger", "Blog edited successful");
-        return "redirect:/";
+        model.addAttribute("blog", new Blog());
+        return "/blog/create";
     }
-
-    @GetMapping("/create")
-    public ModelAndView saveBlog() {
-        return new ModelAndView("/blog/create","blog",new Blog());
-    }
-
-    @PostMapping("/create")
-    public String saveBlog(@ModelAttribute Blog blog, RedirectAttributes redirectAttributes) {
-        blog.setDateUpdate(new Date());
+    @PostMapping("/blog/save")
+    public String save(Blog blog, RedirectAttributes redirect){
+        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date today = Calendar.getInstance().getTime();
+        String date = df.format(today);
+        blog.setDateUpdate(date);
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("messenger", "Blog create successful");
+        redirect.addFlashAttribute("success","Add new blog successfully !!");
         return "redirect:/";
     }
 
-    @GetMapping("/delete")
-    public String deleteBlog(@RequestParam Integer id, Model model) {
+    @GetMapping("/blog/{id}/edit")
+    public String edit(@PathVariable int id, Model model){
+        model.addAttribute("blog", blogService.findById(id));
+        return "/blog/edit";
+    }
+    @PostMapping("/blog/update")
+    public String update(Blog blog){
+        blogService.save(blog);
+        return "redirect:/";
+    }
+
+    @GetMapping("/blog/{id}/delete")
+    public String delete(@PathVariable int id, Model model){
         model.addAttribute("blog", blogService.findById(id));
         return "/blog/delete";
     }
-
-    @PostMapping("/delete")
-    public String deleteBlog(@RequestParam Integer id, RedirectAttributes redirectAttributes) {
-        blogService.delete(id);
-        redirectAttributes.addFlashAttribute("messenger", "Blog deleted successful");
+    @PostMapping("/blog/delete")
+    public String delete(Blog blog, RedirectAttributes redirect){
+        blogService.remove(blog.getId());
+        redirect.addFlashAttribute("success", "Removed blog successfully !!");
         return "redirect:/";
     }
 
-    @GetMapping("/view")
-    public ModelAndView viewBlog(@RequestParam Integer id, Model model) {
-        return new ModelAndView("/blog/view","blog",blogService.findById(id));
+    @GetMapping("/blog/{id}/view")
+    public String view(@PathVariable int id, Model model){
+        model.addAttribute("blog", blogService.findById(id));
+        return "/blog/view";
     }
+
 }
