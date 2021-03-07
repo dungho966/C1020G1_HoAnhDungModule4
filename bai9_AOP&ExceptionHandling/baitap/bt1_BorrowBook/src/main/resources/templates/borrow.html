@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="/layout :: head">
+</head>
+<body>
+<h1>Give Book Back</h1>
+<h2>
+    <a th:href="@{/}">
+        Back to Library
+    </a>
+</h2>
+<h2 th:text="${message}" style="color: red"></h2>
+<form action="#" th:action="@{/book/borrow}" method="post">
+    <div>
+        <label>Book Code:</label>
+        <input type="text" name="bookCode"/>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
