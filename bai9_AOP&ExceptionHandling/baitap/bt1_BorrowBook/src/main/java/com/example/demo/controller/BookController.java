@@ -40,7 +40,7 @@ public class BookController {
 
 
     @PostMapping("/book/borrow")
-    public String giveBack(@RequestParam String bookCode, Model model){
+    public String Back(@RequestParam String bookCode, Model model){
         Book book = bookService.findByCode(bookCode);
         if (book == null){
             model.addAttribute("message", "Not found");

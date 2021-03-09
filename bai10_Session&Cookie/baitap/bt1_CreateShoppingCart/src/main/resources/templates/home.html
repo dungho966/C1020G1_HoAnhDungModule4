@@ -1,53 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link rel="stylesheet" href="/templates/lib/bootstrap.min.css">
-    <style>
-        *{
-            box-sizing: border-box;
-        }
-
-        [class*="card-img-top"] {
-           width: 200px;
-            height: 400px;
-        }
-
-    </style>
-    <meta charset="UTF-8">
-    <title>Page1</title>
-</head>
+<head th:replace="/layout :: head">
 <body>
-<h3 class="row" style="margin-left: 50px ; color: red">DANH SÁCH SẢN PHẨM</h3>
-<div class="row" style="border: 1px " >
-    <div class="card" style="width: 18rem ; float: left"><a href="/sp1">
-        <img src="/img/hoa1.jpg" class="card-img-top" alt="..." ></a>
-        <div class="card-body">
-            <h5 class="card-title" style="text-align: center">Sản Phẩm 1</h5>
-            <p class="card-text" style="text-align: center">350.000</p>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem; float: left"><a href="/sp2">
-        <img src="/img/hoa2.jpg" class="card-img-top" alt="..."></a>
-        <div class="card-body">
-            <h5 class="card-title" style="text-align: center">Sản Phẩm 2</h5>
-            <p class="card-text" style="text-align: center">400.000</p>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem; float: left"><a href="/sp3">
-        <img src="/img/hoa3.jpg" class="card-img-top" alt="..."></a>
-        <div class="card-body">
-            <h5 class="card-title" style="text-align: center">Sản Phẩm 3</h5>
-            <p class="card-text" style="text-align: center">500.000</p>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem; float: left"><a href="/sp4">
-        <img src="/img/hoa4.jpg" class="card-img-top" alt="..."></a>
-        <div class="card-body">
-            <h5 class="card-title" style="text-align: center">Sản Phẩm 4</h5>
-            <p class="card-text" style="text-align: center">600.000</p>
-        </div>
-    </div>
-</div>
-
+<h3>Product</h3>
+<a th:href="@{/product/cart}"></a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Add to cart</th>
+        <th>View</th>
+    </tr>
+    <tr th:each="row,rowStat: ${products}">
+        <td th:text="${row.name}"></td>
+        <td th:text="${row.price}"></td>
+        <td><a th:href="@{/product/{id}/add(id=${row.getId()})}">Add to cart</a></td>
+        <td><a th:href="@{/product/{id}/view(id=${row.getId()})}">View</a></td>
+    </tr>
+</table>
 </body>
 </html>

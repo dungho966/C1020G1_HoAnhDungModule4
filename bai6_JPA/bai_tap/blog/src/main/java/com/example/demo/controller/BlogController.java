@@ -17,12 +17,7 @@ public class BlogController {
     @Autowired
     private BlogService blogService ;
 
-    @GetMapping("/create-blog")
-    public ModelAndView home(){
-        ModelAndView modelAndView = new ModelAndView("/create") ;
-        modelAndView.addObject("blog" , new Blog()) ;
-        return modelAndView ;
-    }
+
 
     @PostMapping("/create-blog")
     public ModelAndView save(@ModelAttribute("blog")  Blog blog){
