@@ -1,19 +1,24 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Cart;
 import com.example.demo.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
-    List<Product> findAll();
+    Page<Product> findAll(Pageable pageable);
 
-    Product findById(Integer id);
+    Product findById(int id);
 
-    void save (Product product);
+    void addToCart(Map<Product, Cart> carts, int id);
 
-    void update (Product product);
+    double getTotal(Map<Product, Cart> carts);
 
-    void delete (Integer id);
+    void delete(Map<Product, Cart> carts, int id);
 
+    void update(Map<Product, Cart> carts, int id, int quantity);
 
 }
