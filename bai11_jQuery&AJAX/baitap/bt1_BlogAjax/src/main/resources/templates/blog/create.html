@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<h1>Add New Blog</h1>
+<h2>
+    <a th:href="@{/}">
+        Back to blog list
+    </a>
+</h2>
+<div id="form">
+    <form th:action="@{/blog/save}" th:object="${blog}" method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>Name: </label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <div>
+            <label>Content: </label>
+            <input type="text" th:field="*{content}"/>
+        </div>
+        <input type="hidden" th:field="*{dateUpdate}"/>
+        <div>
+            <label>Category: </label>
+            <select th:field="*{category}">
+                <option th:each="p : ${categories}" th:value="${p.id}" th:text="${p.name}"></option>
+            </select>
+        </div>
+        <input type="submit" value="Save"></input>
+    </form>
+</div>
+</body>
+</html>

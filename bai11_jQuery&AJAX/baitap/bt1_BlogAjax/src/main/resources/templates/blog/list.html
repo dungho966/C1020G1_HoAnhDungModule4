@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+</head>
+<body>
+<h1>
+    <a th:href="@{/}">Blog List</a>
+</h1>
+<h2>
+    <a th:href="@{/blog/create}">
+        Add new blog
+    </a>
+</h2>
+
+<form >
+    <lable >Search by name: </lable>
+    <input  type="search" placeholder="Search" id="input"  name="s">
+    <button  id="btsearch" type="submit">Search</button>
+</form><br>
+
+<table id = "blogs">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Name</th>
+        <th>Content</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody id="body">
+    <tr th:each="blog,rowStat : ${blogList}">
+        <td th:text="${rowStat.index} + 1"></td>
+        <td th:text="${blog.name}"></td>
+        <td th:text="${blog.content}"></td>
+        <td th:text="${blog.category.name}"></td>
+        <td><a th:href="@{/blog/{id}/edit(id=${blog.getId()})}">Edit</a></td>
+        <td><a th:href="@{/blog/{id}/delete(id=${blog.getId()})}">Delete</a></td>
+        <td><a th:href="@{/blog/{id}/view(id=${blog.getId()})}">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<button type="submit" id="load">Load</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<div>
+    <a th:href="@{'/'(page=${blogList.number - 1})}" th:if="${blogList.hasPrevious()}">Previous</a>
+    <span th:text="${blogList.number + 1}"></span>/<span th:text="${blogList.totalPages}"></span>
+    <a th:href="@{'/'(page=${blogList.number + 1})}" th:if="${blogList.hasNext()}">Next</a>
+</div>
+</body>
+<script>
+    $(document).ready(function () {
+        $('#btsearch').click(function (e) {
+            let search = document.getElementById("input").value;
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'GET',
+                url: 'http://localhost:8080/search?s=' + search,
+                dataType: 'json',
+                success: function (blogs) {
+                    let result ="";
+                    for (let i=0; i<blogs.content.length; i++) {
+                        result += "<tr>";
+                        result += "<td>" + (i + 1) + "</td>";
+                        result += "<td>" + blogs.content[i].name + "</td>";
+                        result += "<td>" + blogs.content[i].content + "</td>";
+                        result += "<td>" + blogs.content[i].category.name + "</td>";
+                        result += "<td>"+"</td>";
+                        result += "<td>"+"</td>";
+                        result += "<td>"+"</td>";
+                        result += "</tr>";
+                    }
+                    $('#body').html(result)
+
+                }
+            })
+        });
+    });
+
+    let result = "";
+    let page = 0;
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type : 'GET',
+        url : "http://localhost:8080/blog-list",
+        dataType :'json',l  
+        success: function (blogs) {
+            for (let i=0; i<blogs.content.length; i++) {
+                result += "<tr>";
+                result += "<td>" + (i + 1) + "</td>";
+                result += "<td>" + blogs.content[i].name + "</td>";
+                result += "<td>" + blogs.content[i].content + "</td>";
+                result += "<td>" + blogs.content[i].category.name + "</td>";
+                result += "<td>"+"</td>";
+                result += "<td>"+"</td>";
+                result += "<td>"+"</td>";
+                result += "</tr>";
+            }
+            $("#body").html(result);
+        }
+    });
+
+    $(document).ready(function () {
+        $('#load').click(function () {
+            // let oldHtml = $('#t-body').html(result);
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: 'GET',
+                url: 'http://localhost:8080/blog-list/?page=' + (++page),
+                dataType: 'json',
+                success: function (blogs) {
+                    for (let i=0; i<blogs.content.length; i++){
+                        result += "<tr>";
+                        result += "<td>" + (i + 4) + "</td>";
+                        result += "<td>" + blogs.content[i].name + "</td>";
+                        result += "<td>" + blogs.content[i].content + "</td>";
+                        result += "<td>" + blogs.content[i].category.name + "</td>";
+                        result += "<td>"+"</td>";
+                        result += "<td>"+"</td>";
+                        result += "<td>"+"</td>";
+                        result += "</tr>";
+                    }
+                    $('#body').html(result);
+                }
+            })
+        })
+    });
+
+</script>
+</html>
