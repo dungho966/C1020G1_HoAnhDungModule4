@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Employee</title>
+</head>
+<body>
+<h1><a th:href="@{/employee/create}">Add New Employee</a></h1>
+<table>
+    <tr>
+        <th>STT</th>
+        <th>Employee Name</th>
+        <th>Employee Birthday</th>
+        <th>Employee ID Card</th>
+        <th>Employee Phone</th>
+        <th>Employee Email</th>
+        <th>Position</th>
+        <th>Employee Salary</th>
+        <th>Education Degree</th>
+        <th>Division</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    <tr th:each="employee,rowstat : ${employeelist}">
+        <td th:text="${rowstat.index +1}"></td>
+        <td th:text="${employee.employeeName}"></td>
+        <td th:text="${employee.employeeBirthday}"></td>
+        <td th:text="${employee.employeeIdCard}"></td>
+        <td th:text="${employee.employeePhone}"></td>
+        <td th:text="${employee.employeeEmail}"></td>
+        <td th:text="${employee.employeeSalary}"></td>
+        <td th:text="${employee.position.positionName}"></td>
+        <td th:text="${employee.educationDegree.educationDegreeName}"></td>
+        <td th:text="${employee.division.divisionName}"></td>
+        <td><a th:href="@{/employee/{id}/edit(id=${employee.getEmployeeId()})}">Edit</a></td>
+        <td><a th:href="@{/employee/{id}/delete(id=${employee.getEmployeeId()})}">Delete</a></td>
+        <td><a th:href="@{/employee/{id}/view(id=${employee.getEmployeeId()})}">View</a></td>
+    </tr>
+</table>
+</body>
+</html>

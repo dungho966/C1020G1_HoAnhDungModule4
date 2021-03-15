@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Update Blog</h1>
+<h2>
+    <a th:href="@{/employeelist}">
+        Back to blog list
+    </a>
+</h2>
+<div><form action="#" th:action="@{/employee/update}" th:object="${employee}" method="POST" novalidate="novalidate">
+    <input type="hidden" th:field="*{employeeId}"/>
+    <div>
+        <label>Name: </label>
+        <input type="text" th:field="*{employeeName}"/>
+    </div>
+    <div>
+        <label>Date Of Birth: </label>
+        <input type="email" th:field="*{employeeBirthday}"/>
+    </div>
+    <div>
+        <label>Số CMND: </label>
+        <input type="text" th:field="*{employeeIdCard}"/>
+    </div>
+    <div>
+        <label>Phone: </label>
+        <input type="text" th:field="*{employeePhone}"/>
+    </div>
+    <div>
+        <label>Email: </label>
+        <input type="text" th:field="*{employeeEmail}"/>
+    </div>
+    <div>
+        <label>Lương: </label>
+        <input type="text" th:field="*{employeeSalary}"/>
+    </div>
+    <select name="education_degree">
+        <option th:each="p : ${educationdegree}"
+            th:value="${p.educationDegreeId}"
+            th:text="${p.educationDegreeName}"
+            th:selected="(${p.educationDegreeId} == *{educationDegree.educationDegreeId})">
+        </option>
+    </select>
+    <select name="position">
+        <option th:each="p : ${position}"
+                th:value="${p.positionId}"
+                th:text="${p.positionName}"
+                th:selected="(${p.positionId} == *{position.positionId})">
+        </option>
+    </select>
+    <select name="division">
+        <option th:each="p : ${division}"
+                th:value="${p.divisionId}"
+                th:text="${p.divisionName}"
+                th:selected="(${p.divisionId} == *{division.divisionId})">
+        </option>
+    </select>
+
+    <input type="submit" value="Update"/>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>View Blog</h1>
+<h2>
+    <a th:href="@{/employeelist}">
+        Back to Employee list
+    </a>
+</h2>
+<div id="detail">
+    <table>
+        <tr>
+            <td>Id: </td>
+            <td th:text="${employee.employeeId}"></td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td th:text="${employee.employeeName}"></td>
+        </tr>
+        <tr>
+            <td>Birthday: </td>
+            <td th:text="${employee.employeeBirthday}"></td>
+        </tr>
+        <tr>
+            <td>CMND: </td>
+            <td th:text="${employee.employeeIdCard}"></td>
+        </tr>
+        <tr>
+            <td>Phone: </td>
+            <td th:text="${employee.employeePhone}"></td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td th:text="${employee.employeeEmail}"></td>
+        </tr>
+        <tr>
+            <td>Salary: </td>
+            <td th:text="${employee.employeeSalary}"></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
