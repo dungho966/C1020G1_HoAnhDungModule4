@@ -54,6 +54,11 @@
                 </tr>
                 </tbody>
             </table>
+            <div>
+                <a th:href="@{'/employeelist'(page=${employeelist.number - 1})}" th:if="${employeelist.hasPrevious()}">Previous</a>
+                <span th:text="${employeelist.number + 1}"></span>/<span th:text="${employeelist.totalPages}"></span>
+                <a th:href="@{'/employeelist'(page=${employeelist.number + 1})}" th:if="${employeelist.hasNext()}">Next</a>
+            </div>
         </div>
 
     </div>
