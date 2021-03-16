@@ -7,7 +7,6 @@
 <body>
 <div th:replace="/layout/layout :: header "></div>
 <div th:replace="/layout/layout :: nav1"></div>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-2" style="text-align: center">
@@ -17,42 +16,50 @@
         </div>
         <div class="col-sm-10" align="center" style="border-left: black solid" >
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-10" align="center" style="border-left: black solid" >
+                <div class="col-8" >
+                    <h3>Create Room Service</h3>
                         <div>
                             <form th:action="@{/service/save}" th:object="${service}" method="post">
                                 <input type="hidden" th:field="*{serviceId}"/>
-                                <div>
-                                    <label>Name: </label>
-                                    <input type="text" th:field="*{serviceName}"/>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Service Name</label>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{serviceName}" type="text" class="form-control" id="inputEmail3">
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>Diện Tích Sử Dụng: </label>
-                                    <input type="text" th:field="*{useArea}"/>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Diện Tích Sử Dụng:</label>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{useArea}" type="text" class="form-control" >
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>Chi Phí Sử Dụng: </label>
-                                    <input type="text" th:field="*{serviceCost}"/>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Chi Phí Sử Dụng:</label>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{serviceCost}" type="text" class="form-control" >
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>Số Lương Người Tối Đa: </label>
-                                    <input type="text" th:field="*{serviceMaxPeople}"/>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Số Lương Người Tối Đa:</label>
+                                    <div class="col-sm-10">
+                                        <input th:field="*{serviceMaxPeople}" type="text" class="form-control" >
+                                    </div>
                                 </div>
-                                <div>
-                                    <label>Kiểu Thuê: </label>
-                                    <select th:field="*{rentType}">
-                                        <option th:each="p : ${renttype}" th:value="${p.rentTypeId}" th:text="${p.rentTypeName}"></option>
-                                    </select>
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Kiểu Thuê:</label>
+                                    <div class="col-sm-10">
+                                        <select th:field="*{rentType}" class="form-control">
+                                            <option th:each="p : ${renttype}" th:value="${p.rentTypeId}" th:text="${p.rentTypeName}"></option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <input type="submit" value="Save"></input>
                             </form>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <div th:replace="/layout/layout :: footer"></div>
