@@ -36,7 +36,7 @@ public class EmployeeController {
 
     @ModelAttribute("educationdegree")
     public Iterable<EducationDegree> educationDegrees(){
-        return educationDegreeService.findAllEducationDegree();
+        return educationDegreeService.findAll();
     }
 
     @ModelAttribute("division")
@@ -51,7 +51,8 @@ public class EmployeeController {
 
     @GetMapping("/employeelist")
     public ModelAndView list(@PageableDefault(size = 5) Pageable pageable){
-        return new ModelAndView("/employee/list" , "emloyeelist" , employeeService.findAllEmployee(pageable)) ;
+        return new ModelAndView("/employee/list" , "employeelist" ,
+                employeeService.findAll(pageable)) ;
     }
 
     @GetMapping("/employee/search")
@@ -60,7 +61,7 @@ public class EmployeeController {
         if (s.isPresent()){
             employeeList = employeeService.findAllByEmployeeName(s.get() , pageable);
         } else {
-            employeeList = employeeService.findAllEmployee(pageable) ;
+            employeeList = employeeService.findAll(pageable) ;
         }
         model.addAttribute("employeelist" , employeeList) ;
         return "employee/list" ;
@@ -84,7 +85,7 @@ public class EmployeeController {
         model.addAttribute("employee", employeeService.findById(id));
         return "/employee/edit";
     }
-    @PostMapping("/blog/update")
+    @PostMapping("/employee/update")
     public String update(Employee employee){
         employeeService.save(employee);
         return "redirect:/employeelist";

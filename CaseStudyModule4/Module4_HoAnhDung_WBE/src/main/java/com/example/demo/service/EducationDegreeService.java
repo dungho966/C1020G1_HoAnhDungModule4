@@ -4,7 +4,7 @@ import com.example.demo.model.Division;
 import com.example.demo.model.EducationDegree;
 
 public interface EducationDegreeService {
-    Iterable<EducationDegree> findAllEducationDegree();
+    Iterable<EducationDegree> findAll();
 
     EducationDegree findById(int id);
 

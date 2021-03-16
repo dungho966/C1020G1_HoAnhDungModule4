@@ -13,7 +13,7 @@ public class EducationDegreeServiceImpl implements EducationDegreeService {
 
 
     @Override
-    public Iterable<EducationDegree> findAllEducationDegree() {
+    public Iterable<EducationDegree> findAll() {
         return educationDegreeRepository.findAll();
     }
 

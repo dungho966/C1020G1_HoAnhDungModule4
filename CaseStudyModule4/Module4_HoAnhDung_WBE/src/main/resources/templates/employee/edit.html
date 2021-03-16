@@ -1,62 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head">
+    <meta charset="UTF-8">
+    <title>List Employee</title>
+</head>
 <body>
-<h1>Update Blog</h1>
-<h2>
-    <a th:href="@{/employeelist}">
-        Back to blog list
-    </a>
-</h2>
-<div><form action="#" th:action="@{/employee/update}" th:object="${employee}" method="POST" novalidate="novalidate">
-    <input type="hidden" th:field="*{employeeId}"/>
-    <div>
-        <label>Name: </label>
-        <input type="text" th:field="*{employeeName}"/>
-    </div>
-    <div>
-        <label>Date Of Birth: </label>
-        <input type="email" th:field="*{employeeBirthday}"/>
-    </div>
-    <div>
-        <label>Số CMND: </label>
-        <input type="text" th:field="*{employeeIdCard}"/>
-    </div>
-    <div>
-        <label>Phone: </label>
-        <input type="text" th:field="*{employeePhone}"/>
-    </div>
-    <div>
-        <label>Email: </label>
-        <input type="text" th:field="*{employeeEmail}"/>
-    </div>
-    <div>
-        <label>Lương: </label>
-        <input type="text" th:field="*{employeeSalary}"/>
-    </div>
-    <select name="education_degree">
-        <option th:each="p : ${educationdegree}"
-            th:value="${p.educationDegreeId}"
-            th:text="${p.educationDegreeName}"
-            th:selected="(${p.educationDegreeId} == *{educationDegree.educationDegreeId})">
-        </option>
-    </select>
-    <select name="position">
-        <option th:each="p : ${position}"
-                th:value="${p.positionId}"
-                th:text="${p.positionName}"
-                th:selected="(${p.positionId} == *{position.positionId})">
-        </option>
-    </select>
-    <select name="division">
-        <option th:each="p : ${division}"
-                th:value="${p.divisionId}"
-                th:text="${p.divisionName}"
-                th:selected="(${p.divisionId} == *{division.divisionId})">
-        </option>
-    </select>
+<div th:replace="/layout/layout :: header "></div>
+<div th:replace="/layout/layout :: nav1"></div>
 
-    <input type="submit" value="Update"/>
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <h5>Item One</h5>
+            <h5>Item Two</h5>
+            <h5>Item Three</h5>
+        </div>
+        <div class="col-sm-10" align="center" style="border-left: black solid" >
+            <div>
+                <form  th:action="@{/employee/update}" th:object="${employee}" method="POST" novalidate="novalidate">
+                <input type="hidden" th:field="*{employeeId}"/>
+                <div>
+                    <label>Name: </label>
+                    <input type="text" th:field="*{employeeName}"/>
+                </div>
+                <div>
+                    <label>Date Of Birth: </label>
+                    <input type="email" th:field="*{employeeBirthday}"/>
+                </div>
+                <div>
+                    <label>Số CMND: </label>
+                    <input type="text" th:field="*{employeeIdCard}"/>
+                </div>
+                <div>
+                    <label>Phone: </label>
+                    <input type="text" th:field="*{employeePhone}"/>
+                </div>
+                <div>
+                    <label>Email: </label>
+                    <input type="text" th:field="*{employeeEmail}"/>
+                </div>
+                <div>
+                    <label>Lương: </label>
+                    <input type="text" th:field="*{employeeSalary}"/>
+                </div>
+                <select name="education_degree">
+                    <option th:each="p : ${educationdegree}"
+                            th:value="${p.educationDegreeId}"
+                            th:text="${p.educationDegreeName}"
+                            th:selected="(${p.educationDegreeId} == *{educationDegree.educationDegreeId})">
+                    </option>
+                </select>
+                <select name="position">
+                    <option th:each="p : ${position}"
+                            th:value="${p.positionId}"
+                            th:text="${p.positionName}"
+                            th:selected="(${p.positionId} == *{position.positionId})">
+                    </option>
+                </select>
+                <select name="division">
+                    <option th:each="p : ${division}"
+                            th:value="${p.divisionId}"
+                            th:text="${p.divisionName}"
+                            th:selected="(${p.divisionId} == *{division.divisionId})">
+                    </option>
+                </select>
+
+                <input type="submit" value="Update"/>
+            </form>
+            </div>
+        </div>
 </div>
+<div th:replace="/layout/layout :: footer"></div>
 </body>
 </html>
