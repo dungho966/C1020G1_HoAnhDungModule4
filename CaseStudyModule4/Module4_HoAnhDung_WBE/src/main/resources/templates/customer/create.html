@@ -15,69 +15,60 @@
             <h5>Item Three</h5>
         </div>
         <div class="col-sm-10" align="center" style="border-left: black solid" >
-            <h2>Create Employee</h2>
+            <h2>Create Customer</h2>
             <div>
-                <form th:action="@{/employee/save}" th:object="${employee}" method="post">
-                    <input type="hidden" th:field="*{employeeId}"/>
+                <form th:action="@{/customer/save}" th:object="${customer}" method="post">
+                    <input type="hidden" th:field="*{customerId}"/>
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Employee Name</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeName}" type="text" class="form-control" id="inputEmail3">
+                                    <input th:field="*{customerName}" type="text" class="form-control" id="inputEmail3">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">ID Card</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeIdCard}" type="text" class="form-control" >
+                                    <input th:field="*{customerIdCard}" type="text" class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Số Điện Thoại</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeePhone}" type="text" class="form-control" >
+                                    <input th:field="*{customerPhone}" type="text" class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeEmail}" type="email" class="form-control" >
+                                    <input th:field="*{customerEmail}" type="email" class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Birthday</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeBirthday}" type="date" class="form-control" >
+                                    <input th:field="*{customerBirthday}" type="date" class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">Salary</label>
+                                <label  class="col-sm-2 col-form-label">Customer Address</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeSalary}" type="text" class="form-control" >
+                                    <input th:field="*{customerAddress}" type="text" class="form-control" >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Education Degree</label>
+                                <label  class="col-sm-2 col-form-label">Customer Gender</label>
                                 <div class="col-sm-10">
-                                    <select th:field="*{educationDegree}" class="form-control">
-                                        <option th:each="p : ${educationdegree}" th:value="${p.educationDegreeId}" th:text="${p.educationDegreeName}"></option>
-                                    </select>
+                                    <input th:field="*{customerGender}" type="text" class="form-control" >
                                 </div>
                             </div>
+
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Education Degree</label>
+                                <label class="col-sm-2 col-form-label">CustomerType</label>
                                 <div class="col-sm-10">
-                                    <select th:field="*{position}" class="form-control">
-                                        <option th:each="p : ${position}" th:value="${p.positionId}" th:text="${p.positionName}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Education Degree</label>
-                                <div class="col-sm-10">
-                                    <select th:field="*{division}" class="form-control">
-                                        <option th:each="p : ${division}" th:value="${p.divisionId}" th:text="${p.divisionName}"></option>
+                                    <select th:field="*{customerType}" class="form-control">
+                                        <option th:each="p : ${customertype}" th:value="${p.customerTypeId}" th:text="${p.customerTypeName}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -85,11 +76,11 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-secondary">SAVE</button>
-<!--                    <input type="submit" value="Save"></input>-->
+                    <!--                    <input type="submit" value="Save"></input>-->
                 </form>
             </div>
         </div>
-        </div>
+    </div>
 </div>
 <div th:replace="/layout/layout :: footer"></div>
 </body>
