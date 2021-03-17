@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -31,6 +32,17 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "division_id")
     private Division division ;
+
+    @OneToMany(targetEntity = Contract.class , mappedBy = "employee")
+    private List<Contract> contractList ;
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
+    }
 
     public Position getPosition() {
         return position;

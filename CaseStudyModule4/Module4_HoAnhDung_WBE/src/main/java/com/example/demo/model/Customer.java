@@ -1,6 +1,13 @@
 package com.example.demo.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -10,8 +17,14 @@ public class Customer {
     private String customerName ;
     private String customerBirthday ;
     private String customerGender ;
+
+    @Pattern(regexp = "^\\d{9,12}$" , message = "From 9 or 12 characters")
+    @NotNull(message = "CustomerIDCard can be null")
     private String customerIdCard;
+
+    @Pattern(regexp = "" , message = "Wrong Phone Form")
     private String customerPhone ;
+
     private String customerEmail ;
     private String customerAddress ;
 
@@ -22,6 +35,17 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "contract_id")
     private Contract contract ;
+
+    @OneToMany(targetEntity = Contract.class , mappedBy = "employee")
+    private List<Contract> contractList ;
+
+    public List<Contract> getContractList() {
+        return contractList;
+    }
+
+    public void setContractList(List<Contract> contractList) {
+        this.contractList = contractList;
+    }
 
     public Contract getContract() {
         return contract;
@@ -105,4 +129,19 @@ public class Customer {
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
     }
+
+//    @Override
+//    public boolean supports(Class<?> aClass) {
+//        return false;
+//    }
+//
+//    @Override
+//    public void validate(Object target, Errors errors) {
+//        Customer customer = (Customer) target ;
+//        String customerIdCard = customer.getCustomerIdCard();
+//        ValidationUtils.rejectIfEmpty(errors, "customerIdCard" , "customeridcard.empty");
+//        if (!customerIdCard.matches("^\\d{9,12}$")){
+//            errors.rejectValue("customerIdCard" , "customeridcard.length");
+//        }
+//    }
 }

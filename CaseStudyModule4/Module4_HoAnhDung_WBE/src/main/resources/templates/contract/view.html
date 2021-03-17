@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head">
+    <meta charset="UTF-8">
+    <title>List Employee</title>
+</head>
+<body>
+<div th:replace="/layout/layout :: header "></div>
+<div th:replace="/layout/layout :: nav1"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2" style="text-align: center">
+            <h5>Item One</h5>
+            <h5>Item Two</h5>
+            <h5>Item Three</h5>
+        </div>
+
+        <div class="col-sm-10" align="center" style="border-left: black solid" >
+            <table>
+                <tr>
+                    <td>Id: </td>
+                    <td th:text="${contract.contractId}"></td>
+                </tr>
+                <tr>
+                    <td>Start Date: </td>
+                    <td th:text="${contract.contractStartDate}"></td>
+                </tr>
+                <tr>
+                    <td>End Date: </td>
+                    <td th:text="${contract.contractEndDate}"></td>
+                </tr>
+                <tr>
+                    <td>Depoisit: </td>
+                    <td th:text="${contract.contractDeposit}"></td>
+                </tr>
+                <tr>
+                    <td>Total Money: </td>
+                    <td th:text="${contract.contractTotalMoney}"></td>
+                </tr>
+                <tr>
+                    <td>Service: </td>
+                    <td th:text="${contract.service.serviceName}"></td>
+                </tr>
+                <tr>
+                    <td>Customer: </td>
+                    <td th:text="${contract.customer.customerName}"></td>
+                </tr>
+                <tr>
+                    <td>Employee: </td>
+                    <td th:text="${contract.employee.employeeName}"></td>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="/layout/layout :: footer"></div>
+</body>
+</html>
+
