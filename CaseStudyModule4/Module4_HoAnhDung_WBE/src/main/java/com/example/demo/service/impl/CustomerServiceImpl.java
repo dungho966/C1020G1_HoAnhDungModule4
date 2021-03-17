@@ -31,4 +31,9 @@ public class CustomerServiceImpl implements CustomerService {
     public void remove(int id) {
             customerRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Customer> findAllInputTex(String keyword, Pageable pageable) {
+        return customerRepository.findAllInputTex(keyword , pageable);
+    }
 }

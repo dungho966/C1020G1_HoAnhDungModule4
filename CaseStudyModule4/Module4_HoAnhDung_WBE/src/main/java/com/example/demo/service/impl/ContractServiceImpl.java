@@ -32,4 +32,9 @@ public class ContractServiceImpl implements ContractService {
     public void remove(int id) {
         contractRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Contract> findAllInputTex(String keyword, Pageable pageable) {
+        return contractRepository.findAllInputTex(keyword, pageable);
+    }
 }

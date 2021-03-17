@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,7 +58,10 @@ public class ServiceController {
     }
 
     @PostMapping("/service/save")
-    public String Save(Service service , RedirectAttributes redirect){
+    public String Save(@Validated BindingResult bindingResult ,Service service , RedirectAttributes redirect){
+        if (bindingResult.hasFieldErrors()) {
+            return "/service/create";
+        }
         serviceService.save(service);
         redirect.addFlashAttribute("success" , "add new service successfully") ;
         return "redirect:/serviceroomlist" ;

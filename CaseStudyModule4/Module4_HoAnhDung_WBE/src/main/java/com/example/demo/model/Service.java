@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import java.util.List;
 
 @Entity
@@ -11,12 +12,20 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int serviceId ;
     private String serviceName ;
+
+    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
     private String useArea ;
+
+    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
     private String serviceCost ;
     private String serviceMaxPeople ;
     private String standardRoom ;
     private String descriptionOtherConvenience ;
+
+    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
     private String poolArea ;
+
+    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
     private String numberOfFloor ;
 
     @ManyToOne

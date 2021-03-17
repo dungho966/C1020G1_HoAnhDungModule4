@@ -5,6 +5,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -18,13 +19,14 @@ public class Customer {
     private String customerBirthday ;
     private String customerGender ;
 
-    @Pattern(regexp = "^\\d{9,12}$" , message = "From 9 or 12 characters")
+    @Pattern(regexp = "(^\\d{9}$)|(^\\d{12}$)", message = "ID Card is not valid")
     @NotNull(message = "CustomerIDCard can be null")
     private String customerIdCard;
 
-    @Pattern(regexp = "" , message = "Wrong Phone Form")
+    @Pattern(regexp = "(^(090)\\d{7}$)|(^(091)\\d{7}$)|(^(\\+\\(84\\) 90)\\d{7}$)|(^(\\+\\(84\\) 91)\\d{7}$)",
+            message = "wrong Form Phone Number")
     private String customerPhone ;
-
+    @Email
     private String customerEmail ;
     private String customerAddress ;
 

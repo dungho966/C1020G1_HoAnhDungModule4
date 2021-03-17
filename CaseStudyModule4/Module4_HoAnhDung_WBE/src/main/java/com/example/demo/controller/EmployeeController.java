@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Division;
-import com.example.demo.model.EducationDegree;
-import com.example.demo.model.Employee;
-import com.example.demo.model.Position;
+import com.example.demo.model.*;
 import com.example.demo.service.DivisionService;
 import com.example.demo.service.EducationDegreeService;
 import com.example.demo.service.EmployeeService;
@@ -14,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,17 +54,6 @@ public class EmployeeController {
                 employeeService.findAll(pageable)) ;
     }
 
-    @GetMapping("/employee/search")
-    public String EmployeeList(Model model , @PageableDefault(size = 5 )Pageable pageable , @RequestParam("s")Optional<String> s){
-        Page<Employee> employeeList ;
-        if (s.isPresent()){
-            employeeList = employeeService.findAllByEmployeeName(s.get() , pageable);
-        } else {
-            employeeList = employeeService.findAll(pageable) ;
-        }
-        model.addAttribute("employeelist" , employeeList) ;
-        return "employee/list" ;
-    }
 
     @GetMapping("/employee/create")
     public String Create(Model model){
@@ -74,7 +62,10 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/save")
-    public String Save(Employee employee , RedirectAttributes redirect){
+    public String Save(@Validated BindingResult bindingResult ,Employee employee , RedirectAttributes redirect){
+        if (bindingResult.hasFieldErrors()) {
+            return "/employee/create";
+        }
         employeeService.save(employee);
         redirect.addFlashAttribute("success" , "add new employee successfully") ;
         return "redirect:/employeelist" ;
@@ -108,6 +99,18 @@ public class EmployeeController {
     public String view(@PathVariable int id, Model model){
         model.addAttribute("employee", employeeService.findById(id));
         return "/employee/view";
+    }
+
+    @GetMapping("/employee/search")
+    public String index(Model model, @PageableDefault (size = 5) Pageable pageable, @RequestParam("keyword") Optional<String> keyword){
+        Page<Employee> employees;
+        if (keyword.isPresent()){
+            employees = employeeService.findAllInputTex(keyword.get() ,pageable) ;
+        } else {
+            employees = employeeService.findAll(pageable) ;
+        }
+        model.addAttribute("customerlist", employees);
+        return "/customer/list";
     }
 
 

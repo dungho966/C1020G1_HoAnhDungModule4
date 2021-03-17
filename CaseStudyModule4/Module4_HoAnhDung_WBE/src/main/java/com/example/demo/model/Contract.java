@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,11 @@ public class Contract {
     private int contractId ;
     private String contractStartDate ;
     private String contractEndDate ;
+
+    @DecimalMin(value = "0.01", message = " Phải Là Số Dương")
     private String contractDeposit ;
+
+    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
     private String contractTotalMoney ;
 
     @OneToMany(targetEntity = Customer.class, mappedBy = "contract")

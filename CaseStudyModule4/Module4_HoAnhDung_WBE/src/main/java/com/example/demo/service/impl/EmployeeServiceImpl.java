@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.Contract;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
@@ -13,9 +14,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository ;
 
+
+
     @Override
-    public Page<Employee> findAllByEmployeeName(String name, Pageable pageable) {
-        return employeeRepository.findAllByEmployeeName(name , pageable);
+    public Page<Employee> findAllInputTex(String keyword, Pageable pageable) {
+        return employeeRepository.findAllInputTex(keyword, pageable);
     }
 
     @Override

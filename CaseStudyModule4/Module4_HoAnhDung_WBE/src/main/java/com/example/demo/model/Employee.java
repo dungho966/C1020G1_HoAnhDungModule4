@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,12 @@ public class Employee {
     private int employeeId ;
     private String employeeName ;
     private String employeeBirthday ;
+
+    @Pattern(regexp = "(^\\d{9}$)|(^\\d{12}$)", message = "ID Card Wrong Form")
     private String employeeIdCard ;
+
+    @Pattern(regexp = "(^(090)\\d{7}$)|(^(091)\\d{7}$)|(^(\\+\\(84\\) 90)\\d{7}$)|(^(\\+\\(84\\) 91)\\d{7}$)",
+            message = "Wrong Form Phone Number")
     private String employeePhone ;
     private String employeeEmail ;
     private String employeeSalary ;

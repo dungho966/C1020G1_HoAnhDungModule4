@@ -10,4 +10,5 @@ public interface CustomerService {
     Customer findById(int id);
     void save(Customer customer);
     void remove(int id);
+    Page<Customer> findAllInputTex(String keyword, Pageable pageable);
 }

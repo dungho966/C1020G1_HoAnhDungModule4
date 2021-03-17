@@ -8,12 +8,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Optional;
 
 @Controller
 public class ContractController {
@@ -70,7 +71,10 @@ public class ContractController {
     }
 
     @PostMapping("/contract/save")
-    public String Save(Contract contract , RedirectAttributes redirect){
+    public String Save(@Validated BindingResult bindingResult , Contract contract , RedirectAttributes redirect){
+        if (bindingResult.hasFieldErrors()) {
+            return "/contract/create";
+        }
         contractService.save(contract);
         redirect.addFlashAttribute("success" , "add new employee successfully") ;
         return "redirect:/contractlist" ;
@@ -104,5 +108,17 @@ public class ContractController {
     public String view(@PathVariable int id, Model model){
         model.addAttribute("contract", contractService.findById(id));
         return "/contract/view";
+    }
+
+    @GetMapping("/contract/search")
+    public String index(Model model, @PageableDefault (size = 5) Pageable pageable, @RequestParam("keyword") Optional<String> keyword){
+        Page<Contract> contracts;
+        if (keyword.isPresent()){
+            contracts = contractService.findAllInputTex(keyword.get() ,pageable) ;
+        } else {
+            contracts = contractService.findAllContract(pageable) ;
+        }
+        model.addAttribute("customerlist", contracts);
+        return "/contract/list";
     }
 }

@@ -10,4 +10,5 @@ public interface ContractService {
     Contract findById(int id);
     void save(Contract contract);
     void remove(int id);
+    Page<Contract> findAllInputTex(String keyword, Pageable pageable);
 }
