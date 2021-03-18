@@ -15,6 +15,10 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId ;
+
+
+    @Pattern(regexp = "^(KH-)\\d{4}$", message = "Code must be KH-XXXX")
+    private String customerCode ;
     private String customerName ;
     private String customerBirthday ;
     private String customerGender ;
@@ -25,6 +29,8 @@ public class Customer {
 
     @Pattern(regexp = "(^(090)\\d{7}$)|(^(091)\\d{7}$)|(^(\\+\\(84\\) 90)\\d{7}$)|(^(\\+\\(84\\) 91)\\d{7}$)",
             message = "wrong Form Phone Number")
+
+    @Pattern(regexp = "(^(090)\\d{7}$)|(^(091)\\d{7}$)|(^(\\+\\(84\\) 90)\\d{7}$)|(^(\\+\\(84\\) 91)\\d{7}$)", message = "Phone number is not valid")
     private String customerPhone ;
     @Email
     private String customerEmail ;
@@ -51,6 +57,14 @@ public class Customer {
 
     public Contract getContract() {
         return contract;
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 
     public void setContract(Contract contract) {

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -55,7 +56,7 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/save")
-    public String Save(@Validated BindingResult bindingResult ,Customer customer , RedirectAttributes redirect){
+    public String Save(@Valid @ModelAttribute  Customer customer , BindingResult bindingResult , RedirectAttributes redirect){
         if (bindingResult.hasFieldErrors()) {
             return "/customer/create";
         }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -71,7 +72,7 @@ public class ContractController {
     }
 
     @PostMapping("/contract/save")
-    public String Save(@Validated BindingResult bindingResult , Contract contract , RedirectAttributes redirect){
+    public String Save(@Valid @ModelAttribute  Contract contract , BindingResult bindingResult ,  RedirectAttributes redirect){
         if (bindingResult.hasFieldErrors()) {
             return "/contract/create";
         }
@@ -118,7 +119,7 @@ public class ContractController {
         } else {
             contracts = contractService.findAllContract(pageable) ;
         }
-        model.addAttribute("customerlist", contracts);
+        model.addAttribute("contractlist", contracts);
         return "/contract/list";
     }
 }

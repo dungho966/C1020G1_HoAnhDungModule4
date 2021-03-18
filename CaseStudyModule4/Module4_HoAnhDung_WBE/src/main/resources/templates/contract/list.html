@@ -24,7 +24,6 @@
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="background: white ; color: gray">Search</button>
                 </form>
             </div>
-            </div>
             <table class="table">
                 <thead>
                 <tr>
@@ -62,8 +61,8 @@
                 <span th:text="${contractlist.number + 1}"></span>/<span th:text="${contractlist.totalPages}"></span>
                 <a th:href="@{'/contractlist'(page=${contractlist.number + 1})}" th:if="${contractlist.hasNext()}">Next</a>
             </div>
+            </div>
         </div>
-
     </div>
 </div>
 <div th:replace="/layout/layout :: footer"></div>

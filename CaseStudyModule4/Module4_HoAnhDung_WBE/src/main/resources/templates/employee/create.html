@@ -21,40 +21,61 @@
                     <input type="hidden" th:field="*{employeeId}"/>
                     <div class="row">
                         <div class="col-8">
+
                             <div class="form-group row">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Employee Name</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{employeeName}" type="text" class="form-control" id="inputEmail3">
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">ID Card</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeIdCard}" type="text" class="form-control" >
+                                    <input th:field="*{employeeIdCard}" type="number" class="form-control" >
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('employeeIdCard')}" th:errors="*{employeeIdCard}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Số Điện Thoại</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeePhone}" type="text" class="form-control" >
+                                    <input th:field="*{employeePhone}" type="number" class="form-control" >
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('employeePhone')}" th:errors="*{employeePhone}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{employeeEmail}" type="email" class="form-control" >
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('employeeEmail')}" th:errors="*{employeeEmail}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Birthday</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{employeeBirthday}" type="date" class="form-control" >
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label  class="col-sm-2 col-form-label">Salary</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{employeeSalary}" type="text" class="form-control" >
+                                    <input th:field="*{employeeSalary}" type="number" class="form-control" >
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('employeeSalary')}" th:errors="*{employeeSalary}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -62,7 +83,10 @@
                                 <div class="col-sm-10">
                                     <select th:field="*{educationDegree}" class="form-control">
                                         <option th:each="p : ${educationdegree}" th:value="${p.educationDegreeId}" th:text="${p.educationDegreeName}"></option>
+
                                     </select>
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -70,7 +94,10 @@
                                 <div class="col-sm-10">
                                     <select th:field="*{position}" class="form-control">
                                         <option th:each="p : ${position}" th:value="${p.positionId}" th:text="${p.positionName}"></option>
+
                                     </select>
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -78,7 +105,10 @@
                                 <div class="col-sm-10">
                                     <select th:field="*{division}" class="form-control">
                                         <option th:each="p : ${division}" th:value="${p.divisionId}" th:text="${p.divisionName}"></option>
+
                                     </select>
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
 

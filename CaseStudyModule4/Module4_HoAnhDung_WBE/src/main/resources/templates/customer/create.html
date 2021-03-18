@@ -22,61 +22,92 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group row">
-                                <label for="inputEmail3" class="col-sm-2 col-form-label">Employee Name</label>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Employee Code</label>
+                                <div class="col-sm-10">
+                                    <input th:field="*{customerCode}" type="text" class="form-control">
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Name</label>
                                 <div class="col-sm-10">
                                     <input th:field="*{customerName}" type="text" class="form-control" id="inputEmail3">
+                                    <div  class="alert alert-dark" role="alert">
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">ID Card</label>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Email</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{customerIdCard}" type="text" class="form-control" >
+                                    <input th:field="*{customerEmail}" type="text" class="form-control">
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">Số Điện Thoại</label>
+                                <label  class="col-sm-2 col-form-label">Customer Birthday</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{customerPhone}" type="text" class="form-control" >
+                                    <input th:field="*{customerBirthday}" type="number" class="form-control" >
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">Email</label>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Id Card</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{customerEmail}" type="email" class="form-control" >
+                                    <input th:field="*{customerIdCard}" type="number" class="form-control">
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('customerIdCard')}" th:errors="*{customerIdCard}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">Birthday</label>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Gender</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{customerBirthday}" type="date" class="form-control" >
+                                    <input th:field="*{customerGender}" type="text" class="form-control">
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">Customer Address</label>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Phone</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{customerAddress}" type="text" class="form-control" >
+                                    <input th:field="*{customerPhone}" type="text" class="form-control">
+                                    <div  class="alert alert-dark" role="alert">
+                                        <div th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label  class="col-sm-2 col-form-label">Customer Gender</label>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Customer Address</label>
                                 <div class="col-sm-10">
-                                    <input th:field="*{customerGender}" type="text" class="form-control" >
+                                    <input th:field="*{customerAddress}" type="text" class="form-control">
+                                    <div  class="alert alert-dark" role="alert">
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">CustomerType</label>
+                                        <div class="col-sm-10">
+                                            <select th:field="*{customerType}" class="form-control">
+                                                <option th:each="p : ${customertype}" th:value="${p.customerTypeId}" th:text="${p.customerTypeName}"></option>
+                                            </select>
+                                            <div  class="alert alert-dark" role="alert">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">CustomerType</label>
-                                <div class="col-sm-10">
-                                    <select th:field="*{customerType}" class="form-control">
-                                        <option th:each="p : ${customertype}" th:value="${p.customerTypeId}" th:text="${p.customerTypeName}"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                     <button type="submit" class="btn btn-secondary">SAVE</button>
-                    <!--                    <input type="submit" value="Save"></input>-->
                 </form>
             </div>
         </div>

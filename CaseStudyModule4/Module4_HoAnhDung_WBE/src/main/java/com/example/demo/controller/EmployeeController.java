@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -62,7 +63,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee/save")
-    public String Save(@Validated BindingResult bindingResult ,Employee employee , RedirectAttributes redirect){
+    public String Save(@Valid @ModelAttribute  Employee employee , BindingResult bindingResult , RedirectAttributes redirect){
         if (bindingResult.hasFieldErrors()) {
             return "/employee/create";
         }
@@ -109,7 +110,7 @@ public class EmployeeController {
         } else {
             employees = employeeService.findAll(pageable) ;
         }
-        model.addAttribute("customerlist", employees);
+        model.addAttribute("employeelist", employees);
         return "/customer/list";
     }
 

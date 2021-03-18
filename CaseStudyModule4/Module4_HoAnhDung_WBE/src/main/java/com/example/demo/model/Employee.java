@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
@@ -18,7 +20,10 @@ public class Employee {
     @Pattern(regexp = "(^(090)\\d{7}$)|(^(091)\\d{7}$)|(^(\\+\\(84\\) 90)\\d{7}$)|(^(\\+\\(84\\) 91)\\d{7}$)",
             message = "Wrong Form Phone Number")
     private String employeePhone ;
+
     private String employeeEmail ;
+
+    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
     private String employeeSalary ;
 
     public String getEmployeeSalary() {
@@ -41,6 +46,10 @@ public class Employee {
 
     @OneToMany(targetEntity = Contract.class , mappedBy = "employee")
     private List<Contract> contractList ;
+
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private AppUser appUser ;
 
     public List<Contract> getContractList() {
         return contractList;

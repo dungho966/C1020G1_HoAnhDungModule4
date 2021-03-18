@@ -1,21 +1,24 @@
 package com.example.demo.model;
 
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import java.util.List;
 
 @Entity
-public class Contract {
+public class Contract  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int contractId ;
     private String contractStartDate ;
     private String contractEndDate ;
 
-    @DecimalMin(value = "0.01", message = " Phải Là Số Dương")
+    @DecimalMin(value = "0.01", message = " Phải Là Số Dương Và Không Được Để Trống ")
     private String contractDeposit ;
 
-    @DecimalMin(value = "0.01", message = "Phải Là Số Dương")
+    @DecimalMin(value = "0.01", message = " Phải Là Số Dương Và Không Được Để Trống ")
     private String contractTotalMoney ;
 
     @OneToMany(targetEntity = Customer.class, mappedBy = "contract")
@@ -119,4 +122,5 @@ public class Contract {
     public void setCustomerList(List<Customer> customerList) {
         this.customerList = customerList;
     }
+
 }
