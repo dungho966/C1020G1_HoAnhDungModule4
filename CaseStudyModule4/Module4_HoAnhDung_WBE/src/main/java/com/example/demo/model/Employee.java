@@ -47,9 +47,9 @@ public class Employee {
     @OneToMany(targetEntity = Contract.class , mappedBy = "employee")
     private List<Contract> contractList ;
 
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    private AppUser appUser ;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user ;
 
     public List<Contract> getContractList() {
         return contractList;

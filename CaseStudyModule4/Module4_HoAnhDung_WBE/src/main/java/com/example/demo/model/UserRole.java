@@ -1,47 +1,52 @@
 package com.example.demo.model;
 
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User_Role", //
-        uniqueConstraints = { //
-                @UniqueConstraint(name = "USER_ROLE_UK", columnNames = { "User_Id", "Role_Id" }) })
 public class UserRole {
     @Id
-    @GeneratedValue
-    @Column(name = "Id", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "User_Id", nullable = false)
-    private AppUser appUser;
+    private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "Role_Id", nullable = false)
-    private AppRole appRole;
+    private Role role;
 
-    public Long getId() {
+    public UserRole() {
+    }
+
+    public UserRole(Integer id, User user, Role role) {
+        this.id = id;
+        this.user = user;
+        this.role = role;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public AppUser getAppUser() {
-        return appUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public AppRole getAppRole() {
-        return appRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setAppRole(AppRole appRole) {
-        this.appRole = appRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
-
 }
